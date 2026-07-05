@@ -67,8 +67,7 @@ export default function RegisterPage() {
       }
 
       // Registration successful — redirect to OTP verification
-      router.push(`/verify-otp?email=${encodeURIComponent(form.email)}&type=signup&next=select-language`);
-    } catch {
+      router.push("/login");
       setError("Network error. Please check your connection and try again.");
     } finally {
       setIsLoading(false);

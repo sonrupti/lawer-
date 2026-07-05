@@ -1,27 +1,50 @@
 from database import supabase
-from normalize import clean_name
 
 
-def insert_lawyer(name):
+def insert_lawyer(data):
+    try:
+        response = (
+            supabase.table("lawyers")
+            .insert(data)
+            .execute()
+        )
+        return response.data
 
-    name = clean_name(name)
+    except Exception as e:
+        print("Lawyer Insert Error:", e)
 
-    existing = (
-        supabase.table("lawyers")
-        .select("*")
-        .eq("name", name)
-        .execute()
-    )
 
-    if existing.data:
-        return existing.data[0]["id"]
+def insert_case(data):
+    try:
+        response = (
+            supabase.table("cases")
+            .insert(data)
+            .execute()
+        )
+        return response.data
 
-    row = (
-        supabase.table("lawyers")
-        .insert({
-            "name": name
-        })
-        .execute()
-    )
+    except Exception as e:
+        print("Case Insert Error:", e)
+        return None
 
-    return row.data[0]["id"]
+
+def insert_hearing(data):
+    try:
+        response = (
+            supabase.table("hearings")
+            .insert(data)
+            .execute()
+        )
+        return response.data
+
+    except Exception as e:
+        print("Hearing Insert Error:", e)
+
+
+def insert_lawyer(data):
+    try:
+        response = supabase.table("lawyers").insert(data).execute()
+        return response.data
+    except Exception as e:
+        print(f"Lawyer Insert Error: {e}")
+        return None

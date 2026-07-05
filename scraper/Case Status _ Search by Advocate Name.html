@@ -1,0 +1,1862 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+﻿<script type="text/javascript">
+function funConnError()
+{
+	document.getElementById('showList').innerHTML="";
+	document.getElementById('showList').style.display='none';
+	document.getElementById('errSpan').style.display="";
+	var val='CONNECTION FAILED';
+	document.getElementById('txtmsg').value=val;
+	document.getElementById("txtmsg").title =val;
+	document.getElementById('txtmsg').focus();
+}
+
+
+function funUsrError()
+{
+	document.getElementById('showList').innerHTML="";
+	document.getElementById('showList').style.display='none';
+	document.getElementById('errSpan').style.display="";	
+	var val='THERE IS AN ERROR';
+
+	document.getElementById('txtmsg').value=val;
+	document.getElementById("txtmsg").title =val;
+	document.getElementById('txtmsg').focus();
+}
+
+function funUsrErrorParam(input)
+{
+
+	document.getElementById('showList').innerHTML="";
+	document.getElementById('showList').style.display='none';
+	document.getElementById('errSpan').style.display="";	
+	var val='THERE IS AN '+input;
+	document.getElementById('txtmsg').value=val;
+
+	document.getElementById("txtmsg").title =val;
+	document.getElementById('txtmsg').focus();
+}
+
+function funServerSideValidateErr()
+{
+	document.getElementById('showList').innerHTML="";
+	document.getElementById('showList').style.display='none';
+	document.getElementById('errSpan').style.display="";	
+	var val='Invalid Input';
+	document.getElementById('txtmsg').value=val;
+	document.getElementById("txtmsg").title =val;
+	document.getElementById('txtmsg').focus();
+}
+
+function escapeHtml(str)
+{
+str=str.replace(/&|<script|script>/g,'');
+return str;
+}
+
+
+
+
+function trim(inputString) {
+	if (typeof inputString != "string") { return inputString; }
+	var retValue = inputString;
+	var ch = retValue.substring(0, 1);
+	while (ch == " ")
+	{
+		retValue = retValue.substring(1, retValue.length);
+		ch = retValue.substring(0, 1);
+	}
+	ch = retValue.substring(retValue.length-1, retValue.length);
+	while (ch == " ")
+	{
+		retValue = retValue.substring(0, retValue.length-1);
+		ch = retValue.substring(retValue.length-1, retValue.length);
+	}
+	while (retValue.indexOf("  ") != -1)
+	{
+		retValue = retValue.substring(0, retValue.indexOf("  ")) +
+		retValue.substring(retValue.indexOf("  ")+1, retValue.length);
+	}
+	return retValue;
+}
+
+
+
+function checkInteger(str)
+{
+	var len = str.length;
+	for(var i=0; i < len; i++)
+	{
+		if(str.charAt(i) == ".")
+		{
+			return false;
+		}
+	}
+}
+function applycsswhite1()
+	{
+	 $("body").css("color", "black");
+	$("h4").css("color", "#4B8BCD");
+    $(".headingtxt").css("color", " #4B8BCD");
+	$("tr").css("background", "#fff");
+	$(".button").css("background", "#1A5984");
+	$(".title").css("color", "#4B8BCD");
+	$("a").css("color", "#4B8BCD");
+	$(".Lower_court_table").css("background", "#fdf7f4");
+	$(".Acts_table").css("background", "#fdf6e9");
+	$(".Respondent_Advocate_table").css("background", "#f5f1fc");
+	$(".Petitioner_Advocate_table").css("background", "#f3fafe");
+	$(".case_details_table").css("background", "#f9fdf1");
+	$(".FIR_details_table").css("background", "#fae3df");
+	$(".order_table").css("background", "#f5f1fc");
+	$(".Lower_court_table").css("border", "1px solid #000");
+	$(".Acts_table").css("border", "1px solid #000");
+	$(".Respondent_Advocate_table").css("border", "1px solid #000");
+	$(".Petitioner_Advocate_table").css("border", "1px solid #000");
+	$(".case_details_table").css("border-bottom", "1px solid #000");
+	$(".FIR_details_table").css("border", "1px solid #000");
+	}
+function applycssblack1()
+	{
+	$("body").css("color", "white ");	
+	$("body").css("background", "#3D3A3A ");
+	$("h4").css("color", "white");	
+    $(".headingtxt").css("color", "white");
+	$("a:hover").css("color", "white");
+	$("tr").css("background", "#3D3A3A");
+    $(".button").css("background", "black");
+	$(".title").css("color", "white");
+	$("a").css("color", "yellow");
+	$("table.bordered th").css("color", "#000");
+	$(".Lower_court_table").css("background", "#3D3A3A");
+	$(".Acts_table").css("background", "#3D3A3A");
+	$(".Respondent_Advocate_table").css("background", "#3D3A3A");
+	$(".Petitioner_Advocate_table").css("background", "#3D3A3A");
+	$(".case_details_table").css("background", "#3D3A3A");
+	$(".FIR_details_table").css("background", "#3D3A3A");
+	$(".Lower_court_table").css("border", "1px solid #fff");
+	$(".Acts_table").css("border", "1px solid #fff");
+	$(".Respondent_Advocate_table").css("border", "1px solid #fff");
+	$(".Petitioner_Advocate_table").css("border", "1px solid #fff");
+	$(".case_details_table").css("border-bottom", "1px solid #fff");
+	$(".FIR_details_table").css("border", "1px solid #fff");
+	$(".order_table").css("background", "#3D3A3A");
+	}
+
+
+
+
+</script>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Case Status : Search by Advocate Name</title>
+<link href="../cal/jquery.datepick.css" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+<style type="text/css">
+a 
+{
+	color:red;
+	text-decoration:none;
+}
+a:hover 
+{
+color: #ff0000;
+text-decoration:underline;
+}
+a:focus 
+{
+color: #ff0000;
+text-decoration:underline;
+}
+
+
+body
+	{
+	text-align:center;
+	margin:0 auto;
+	width:800px;
+	}
+#caseNoDet
+	{
+		width:100%;
+	}
+#container {
+	left: 42% !important;
+	top: 27% !important;}
+	h1{
+				    background: #eee;
+    width: 700px;
+    padding: 5px 0px;
+    box-shadow: 0px 5px 2px rgba(0,0,0,0.2);
+    margin: 0;
+    color: #555;
+    text-align: center;
+    font-size: 1.5em;
+			}
+			#mainDiv{
+				background:#f7f7f7;
+	border:1px solid #ccc;
+	padding:10px 0;
+	box-shadow: 0px 5px 5px rgba(0,0,0,0.2);
+	margin-top:10px;
+	border-radius:0 0 3px 3px;
+    -webkit-border-radius: 0 0 3px 3px;
+	margin-top:23px;
+			}
+</style>
+ 
+
+
+<style type="text/css">
+
+.controlstyle { 
+	display:none;
+}
+h1{
+				background: #eee;
+				width:100%;
+				padding:5px 0px;
+				box-shadow: 0px 5px 2px rgba(0,0,0,0.2);
+				margin:0;
+				
+				text-align:center;
+			}		
+</style>
+<script type="text/javascript">var csrfMagicToken = "sid:5c6387f3e8fc6f74d0f385a323ae372c21bd5238,1783233434";var csrfMagicName = "__csrf_magic";</script><script src="csrf-magic.js" type="text/javascript"></script></head>
+
+
+<body>
+<div class="common_header">
+<table width="90%" border="0" style="margin:0 auto;"><tbody><tr><td width="20%" align="center"><img src="../images/ecourts-logo.png"></td><td width="80%"><span class="head1">E-COURTS</span><br><span class="head2">High Courts of India</span></td></tr></tbody></table></div><div> <h1> High Court of Orissa </h1> </div>
+<div id="sizecontroldiv" class="controlstyle">
+<a  href="#smaller" title="Decrease Font Size"></a>
+<a href="#fontsize0" title="Normal Font Size"></a>
+<a tabindex='-1' href="#bigger"  title="Increase Font Size"></a>
+</div>
+
+<form name="frm"  action="qs_civil_advocate.php" method='post'><input type='hidden' name='__csrf_magic' value="sid:5c6387f3e8fc6f74d0f385a323ae372c21bd5238,1783233434" />
+
+<div id='back_top' style="display:none;"><center><a href='#' onclick='funBack();'>Back </a></center></div>
+<div id='back_business' style="display:none;"><center><a href='#' onclick='funBackBusiness();'>Back </a></center></div>
+<div id='back_auth' style="display:none;"><center><a href='#' onclick='funShowAuth();'>Back </a></center></div>
+<div id='fourthpage'></div>
+
+<div id='thirdpage'></div>
+<div id='secondpage'></div>
+<div id='back_bottom' style="display:none;"><center><a href='#' onclick='funBack();'>Back </a></center></div>
+<div class="rows">
+<span class="title" id='spantitle'><h4 class="h3class">
+Case Status:Search by Advocate Name</h4></span>
+</div>
+<div id='firstpage'>
+
+<div id='mainDiv' >
+
+<div id='divAdvtSel' class="rows" style="margin-bottom:10px;">
+
+<span class="firstcolumn">
+<span class='redStar'> * </span>Search By</span>
+<span class="thirdcolumn">&nbsp;</span>
+
+<span class="secondcolumn">
+
+<input type='radio' id='radAdvtName' name='radAdvt'  value='1' checked ="checked" onkeypress="return event.keyCode != 13;"  onclick='funShowSearchType();'/>
+<label for="radAdvtName">Advocate Name</label>
+
+<input type='radio' id='radAdvtBarCode' name='radAdvt' value='2' onkeypress="return event.keyCode != 13;" onclick='funShowSearchType();'/>
+<label for="radAdvtBarCode">Bar Code</label>  
+
+<input type='radio' id='radTodCaseList' name='radAdvt'  value='3' onclick='funShowSearchType();'/>
+<label for="radTodCaseList" >Date Case List</label>
+
+</span>
+
+</div>
+
+
+<div  id='divAdvtName' class="rows" >
+
+<span class="firstcolumn"><span class='redStar'> * </span>Advocate</span>
+<span  class="thirdcolumn">&nbsp;</span>
+<span  class="secondcolumn" >
+<input type="text" maxlength="100" size="20" name="advocate_name" id="advocate_name" onkeypress="return /^[a-zA-Z _ - .']$/.test(event.key)" onfocus= style="width: 242px;" title="Please Enter Advocate Name Compulsory Field" />
+
+</span>
+
+</div>
+
+
+<div  id='divAdvtBarCode' class="rows" style="display:none;">
+
+<span class="firstcolumn"><span class='redStar'> * </span>Advocate&nbsp;Bar Code</span>
+<span  class="thirdcolumn">&nbsp;</span>
+<span  class="secondcolumn" >
+
+<input type="text"  maxlength="6" size="10" name="adv_bar_state" id="adv_bar_state"  onkeypress="return /[a-zA-Z]/i.test(event.key)" onfocus= onblur="funUpperCase(this);" style="width:70px;" title="Enter Advocate State Code Compulsory Field" placeholder="statecode"/>
+
+<input type="text"  maxlength="8" size="10" name="adv_bar_code" id="adv_bar_code"  onkeypress="return /[0-9]/i.test(event.key) "  onfocus=  title="Please Enter Advocate Bar Code Compulsory Field" placeholder="barcode" style="width:70px;"/>
+
+<input type="text"  maxlength="4" size="4" name="adv_bar_year" id="adv_bar_year"  onkeypress="return /[0-9]/i.test(event.key)"  onfocus=  title="Enter Advocate Bar Code Year Compulsory Field" placeholder="year" style="width: 40px;"/>
+
+</span>
+</div>
+
+
+<div class="rows" id='divCaseListCal' style='margin-top:15px;display:none;'>
+<span class="firstcolumn"><span class='redStar'> * </span>Case List Date</span>
+<span  class="thirdcolumn">&nbsp;</span>
+<span  class="secondcolumn">
+
+<input type="text" name="caselist_date"  id="caselist_date" size="11"onkeydown="return false;"value="05-07-2026" title="Enter Date in dd-mm-yyyy format Compulsory Field" tabindex="0"  style='margin-right:5px;'/>
+
+<div style="display: none;"> 
+<img id="calImg" src="../cal/calendar.gif" alt="Popup" > 
+</div>
+</span>
+</div>
+
+
+<div  id='tr_CaseStatus' class="rows" style='margin-top:10px;'>
+<span class="firstcolumn"></span>
+<span  class="thirdcolumn">&nbsp;</span>
+<span class="secondcolumn">
+<input type='radio' id='radP' name='f'  value='Pending' checked ="checked" onkeypress="return event.keyCode != 13" onclick='clearShowList();'/>
+<label for="radP">Pending</label>
+
+<input type='radio' id='radD' name='f' value='Disposed' onkeypress="return event.keyCode != 13" onclick='clearShowList();'/>
+<label for="radD">Disposed</label>  
+
+<input type='radio' id='radB' name='f'  value="Both" onkeypress="return event.keyCode != 13" onclick='clearShowList();'/>
+<label for="radB">Both</label>  
+</span>
+</div>
+
+<br/>
+<div class="rows" >
+<span id='captcha_container_2' class='captcha_box'>
+<div><div style="display:inline-block;float:left;"><span class="firstcolumn"><label  id="captcha_label" class="radioLabel" tabindex="0">Captcha</label></span><span class="thirdcolumn">&nbsp;</span><span class="secondcolumn"><img style="padding-right: 0px;border:1px solid #ccc;" id="captcha_image" src="/ecourtindiaHC/securimage/securimage_show.php?b525b7cb473558eae54a009569e18af8" alt="CAPTCHA Image"   tabindex="0" width="120"  /><label style="font-size:0.0000000001px; color:#000;display:inline;">Captcha</label><div id="captcha_image_audio_div" style="display:inline">
+<audio id="captcha_image_audio" preload="none" style="display: none">
+<source id="captcha_image_source_wav" src="/ecourtindiaHC/securimage/securimage_play.php?id=6a49fb9aa65da" type="audio/wav">
+<object type="application/x-shockwave-flash" data="/ecourtindiaHC/securimage/securimage_play.swf?bgcol=%23ffffff&amp;icon_file=%2FecourtindiaHC%2Fsecurimage%2Fimages%2Fspeaker-btn.png&amp;audio_file=%2FecourtindiaHC%2Fsecurimage%2Fsecurimage_play.php%3F" height="32" width="32"><param name="movie" value="/ecourtindiaHC/securimage/securimage_play.swf?bgcol=%23ffffff&amp;icon_file=%2FecourtindiaHC%2Fsecurimage%2Fimages%2Fspeaker-btn.png&amp;audio_file=%2FecourtindiaHC%2Fsecurimage%2Fsecurimage_play.php%3F" /></object></audio>
+</div>
+<div id="captcha_image_audio_controls"  style="display:inline-block;">
+<a tabindex="0" class="captcha_play_button" href="/ecourtindiaHC/securimage/securimage_play.php?id=6a49fb9aa65e1" onclick="return false">
+<img class="captcha_play_image" height="32" width="32" src="/ecourtindiaHC/securimage/images/speaker-btn.png" alt="Play CAPTCHA Audio" style="border: 0px">
+<img class="captcha_loading_image rotating" height="32" width="32" src="/ecourtindiaHC/securimage/images/loading.png" alt="Loading audio" style="display: none">
+</a>
+<noscript>Enable Javascript for audio controls</noscript>
+</div>
+<script type="text/javascript" src="/ecourtindiaHC/securimage/securimage.js"></script>
+<script type="text/javascript">captcha_image_audioObj = new SecurimageAudio({ audioElement: 'captcha_image_audio', controlsElement: 'captcha_image_audio_controls' });</script>
+<a tabindex="0" style="border: 0" href="#" title="Refresh Image" onclick="if (typeof window.captcha_image_audioObj !== 'undefined') captcha_image_audioObj.refresh(); document.getElementById('captcha_image').src = '/ecourtindiaHC/securimage/securimage_show.php?' + Math.random(); this.blur(); return false"><img height="32" width="32" src="/ecourtindiaHC/securimage/images/refresh-btn.png" alt="Refresh Image" onclick="clearCaptchaText();" style="border: 0px;" /></a></span></div></div><div class="" style="clear:left;"><span class="firstcolumn"><label   for="" tabindex="0" class="radioLabel lblCpatcha" ><span class="redStar">*</span>Enter Captcha</label></span> <span class="thirdcolumn">&nbsp;</span><span class="secondcolumn"><input onkeypress="return /[0-9a-zA-Z]/i.test(event.key)"  maxlength=5  maxlength="6" type="text" name="captcha" id="captcha" class="captchaClass"  tabindex="0"/></span></div>
+</span>
+
+
+</div>
+<br/>
+
+<div class="rows" style='clear:both;'>
+
+<span class="firstcolumn" style='float:left;'></span>
+<span  class="thirdcolumn">&nbsp;</span>
+<span class="secondcolumn">
+<input type="button" name="submit1" value='Go' class="button" onclick="validate();" />
+&nbsp;&nbsp;&nbsp;
+<input type="button" name="reset" value='Reset' class="button" onclick="funonReset();" />&nbsp;
+</span><span class="firstcolumn"></span>
+</div>
+
+<div id='errSpan' class="rows" style='display:none;'>
+<br/>
+<span class="secondcolumn" style='width:100%;text-align:center;' >
+<input id='txtmsg' type='text' style='background-color:#FFF; color:red;font-family:arial; font-weight:bold; font-size:1em ;text-align:center;border:0;width:300px;' readonly='readonly'      />
+</span>
+</div>
+
+<br/>
+<div>
+<br/>S4</div>
+<div  id='divWait' style='color:red;display:none;text-align:center; height:65px;' >
+<label for='waitmsg' style='display:none;'>Please Wait</label><input type='text' id='waitmsg' style='background-color:#FFF; color:red;font-family:arial; font-weight:bold; font-size:1em ;text-align:center;border:0;' value='Please Wait' readonly='readonly' />
+<br />
+<img style='align:center;' src='../images/loading.gif' alt='loading data' />
+</div>
+
+
+<br/>
+
+<div id='showList' style='display:none;clear:both;'></div>
+
+
+<div id='showList2'></div>
+<table id='showList3' border='0' align='center' cellspacing='0%' cellpadding='2%' class='bordered' style='display:none; width:50%;'>
+
+<!--<table id='showList3'border='0' width='650px' align='center' cellspacing=\"0%\" cellpadding=\"12%\" class='bordered'>
+<table id='showList3' border='0' align='center' cellspacing='0%' cellpadding='2%' class='bordered' style='display:none; width:50%;'>-->		
+<thead>
+<tr>
+<th  scope='col'>Sr No</th>
+<th scope='col'  width=\"50%\" style=\"text-align:left;\">Case Type/Case Number/Case Year</th>
+<th scope='col'   width=\"70%\" style=\"text-align:left;\">Petitioner Name<br/>Versus <br/>Respondent Name</th>
+<th scope=\"col\" align='left' style=\"text-align:left;\">Advocate Name</th>
+<th  scope='col' >View</th>
+</tr>
+</thead>		
+<tbody id='showList1' ></tbody>
+</table>
+
+		
+<table  id='showList4' border='0' width='90%' align='center' cellspacing='0%' cellpadding='12%' class='bordered' style='display:none;'>
+<thead>
+<tr>
+<th scope=\"col\" style=\"width:30px;\">Sr No</th>
+<th scope=\"col\"  align='left' style=\"width:25%;\">Case Type/Case Number/Case Year</th>
+<th scope=\"col\" align='left' style=\"width:150px;\">Petitioner Name<br/>Versus<br/>Respondent Name</th>
+<th scope=\"col\" align='left' style=\"width:150px;align:center;\">Court Name</th>
+<th scope=\"col\" style=\"width:50px;\">Stage of Case</th>
+</tr>	
+<thead>
+<tbody id='showList5' ></tbody>
+</table>
+	
+
+</div>
+</div>	
+</div>	
+
+</form>
+
+
+<p id="back-top">
+<a href="#top"><span></span>&nbsp;</a>
+</p>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script src="../cal/jquery.plugin.js"></script>
+<script src="../cal/jquery.datepick.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+	newcss();autocomoff();
+});
+$(document).ready(function(){
+
+	// hide #back-top first
+	$("#back-top").hide();
+	
+	// fade in #back-top
+	$(function () {
+		$(window).scroll(function () {
+			if ($(this).scrollTop() > 100) {
+				$('#back-top').fadeIn();
+			} else {
+				$('#back-top').fadeOut();
+			}
+		});
+
+		// scroll body to 0px on click
+		$('#back-top a').click(function () {
+			$('body,html').animate({
+				scrollTop: 0
+			}, 800);
+			return false;
+		});
+	});
+
+});
+
+$(function() {
+  $("#radAdvtName").focus();
+});
+
+
+$('#advocate_name').on('input', function () {
+  $(this).val($(this).val().replace(/[^a-zA-Z._  -]/g, ''));
+}); 
+$('#captcha').on('input', function () {
+  $(this).val($(this).val().replace(/[^a-zA-Z0-9 ]/g, ''));
+});
+$('#adv_bar_state').on('input', function () {
+  $(this).val($(this).val().replace(/[^a-zA-Z ]/g, ''));
+});
+$('#adv_bar_code').on('input', function () {
+  $(this).val($(this).val().replace(/[^0-9 ]/g, ''));
+});
+$('#adv_bar_year').on('input', function () {
+  $(this).val($(this).val().replace(/[^0-9 ]/g, ''));
+});
+$('#caselist_date').on('input', function () {
+  $(this).val($(this).val().replace(/[^ ]/g, ''));
+});
+
+</script>
+
+
+
+<script language="JavaScript" src="../includes/validation.php" type="text/javascript"></script>
+
+
+<script language="javascript" type="text/javascript"> 
+// WRITE YOUR CODE HERE
+//<![CDATA[
+
+function autocomoff()
+{
+	document.getElementById( "advocate_name" ).setAttribute( "autocomplete","off" );
+}
+
+//]]>
+//  END
+</script>
+
+
+<script>
+
+$(function() {
+    const today = new Date();
+    const twoYearsLater = new Date();
+    twoYearsLater.setFullYear(today.getFullYear() + 2);
+
+    
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(today.getFullYear() - 1);
+
+    $('#caselist_date').datepick({
+        minDate: oneYearAgo,         
+        maxDate: twoYearsLater,
+        showTrigger: '#calImg'
+    });
+
+    $('#inlineDatepicker').datepick({
+        onSelect: showDate,
+        minDate: oneYearAgo,         
+        maxDate: twoYearsLater
+    });
+
+    $('#defaultPopup,#defaultInline').datepick({
+        minDate: oneYearAgo,         
+        maxDate: twoYearsLater
+    });
+
+    $('.disablePicker').click(function() {
+        var enable = $(this).text() === 'Enable';
+        $(this).text(enable ? 'Disable' : 'Enable').
+            siblings('.is-datepick').datepick(enable ? 'enable' : 'disable');
+    });
+
+    $('#removePicker').click(function() {
+        var destroy = $(this).text() === 'Remove';
+        $(this).text(destroy ? 'Re-attach' : 'Remove');
+        $('#defaultPopup,#defaultInline').datepick(destroy ? 'destroy' : {});
+    });
+});
+
+function showDate(date) {
+    alert('The date chosen is ' + date);
+}
+
+</script>
+
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../includes/javascript/xmlhttp.js"></script>
+<script type="text/javascript" src="../js/fluidtextresizer.js"></script>
+
+
+<script language='javascript'>
+//<![CDATA[
+var mytextsizer=new fluidtextresizer({
+	controlsdiv: "sizecontroldiv", //id of special div containing your resize controls. Enter "" if not defined
+	targets: ["body"], //target elements to resize text within: ["selector1", "selector2", etc]
+	levels: 1, //number of levels users can magnify (or shrink) text
+	persist: "session", //enter "session" or "none"
+	animate: 200 //animation duration of text resize. Enter 0 to disable
+})
+jQuery(function($){
+	$(parent.document).find('a').click(function(){
+		if(/^#(smaller|bigger|fontsize-?\d)$/.test(this.hash)){
+			$('a[href=' + this.hash + ']').trigger('click');
+		} else if (/^\s*javascript\s*:\s*mytextsizer\./.test(this)){
+			var fontFunction = new Function(this);
+			fontFunction();
+		}
+	});
+});
+
+
+function newcss()
+{
+	if (parent.document.getElementById("txt_css").value=='black')
+	{
+		parent.applycssblack();
+	}
+	else if (parent.document.getElementById("txt_css").value=='white')
+	{
+		parent.applycsswhite();
+	}
+}
+//]]>
+</script>
+<script type="text/javascript" language="javascript">
+
+var radOpt='';
+var qry_file_name='qs_civil_advocate_qry.php';
+var sesslangid="";
+
+var state_code="11";
+var dist_code="1";
+state_code = state_code.replace(/\s/g,'');  
+dist_code = dist_code.replace(/\s/g,'');  
+court_code="1";
+court_code = court_code.replace(/\s/g,'');
+
+var today=new Date();
+var toddd = today.getDate();
+var todmm = today.getMonth()+1; //January is 0!
+var todyyyy = today.getFullYear();
+if(toddd<10)
+{
+	toddd='0'+toddd
+} 
+if(todmm<10){
+	todmm='0'+todmm
+} 
+var curYMD = todyyyy+'-'+todmm+'-'+toddd;
+var curDMY = toddd+'-'+todmm+'-'+todyyyy;
+
+
+//Previous Week
+var prevweek=new Date();
+
+//7 days before
+prevweek.setTime(prevweek.valueOf() - 7 * 24 * 60 * 60 * 1000);
+
+var prevDD = prevweek.getDate();
+var prevMM = prevweek.getMonth()+1; //January is 0!
+var prevYYYY = prevweek.getFullYear();
+if(prevDD<10)
+{
+	prevDD='0'+prevDD
+} 
+if(prevMM<10)
+{
+	prevMM='0'+prevMM
+} 
+var dateFrom = prevYYYY+'-'+prevMM+'-'+prevDD;
+
+
+
+
+
+//<![CDATA[
+
+
+
+
+function toggle()
+{
+	document.getElementById('captcha').value='';
+	funClear();
+}
+
+function funonReset()
+{
+	document.getElementById('showList').style.display='none';	
+	document.getElementById('showList2').style.display='none'	
+	document.getElementById('showList3').style.display='none';
+	document.getElementById('showList1').style.display='none';
+	document.getElementById('showList4').style.display='none';	
+	document.getElementById('showList5').style.display='none';	
+
+	document.getElementById('errSpan').style.display='none';
+
+	document.getElementById('divAdvtSel').style.display="";
+
+	document.getElementById('advocate_name').value='';
+	document.getElementById('adv_bar_state').value='';
+	document.getElementById('adv_bar_code').value='';
+	document.getElementById('adv_bar_year').value='';
+	document.getElementById('divCaseListCal').style.display="none";
+	document.getElementById('divAdvtName').style.display="";
+	document.getElementById('divAdvtBarCode').style.display="none";
+
+	document.getElementById('radAdvtName').checked=true;
+	document.getElementById('radAdvtBarCode').checked=false;
+	document.getElementById('radTodCaseList').checked=false;
+	document.getElementById('tr_CaseStatus').style.display="";
+
+	
+	document.getElementById('radP').checked=true;
+	document.getElementById('radD').checked=false;
+	document.getElementById('radB').checked=false;	
+
+	document.getElementById('captcha').value='';
+	refreshCaptcha();
+	document.getElementById('advocate_name').focus();
+}
+
+
+function funClear()
+{
+	document.getElementById('showList').style.display='none';
+
+	document.getElementById('showList2').style.display='none';
+	document.getElementById('showList3').style.display='none';
+	document.getElementById('showList1').style.display='none';	
+	document.getElementById('showList4').style.display='none';	
+	document.getElementById('showList5').style.display='none';	
+
+	document.getElementById('errSpan').style.display='none';
+
+
+	document.getElementById('divAdvtSel').style.display="";
+
+	document.getElementById('advocate_name').value='';
+	document.getElementById('adv_bar_state').value='';
+	document.getElementById('adv_bar_code').value='';
+	document.getElementById('adv_bar_year').value='';
+	document.getElementById('divCaseListCal').style.display="none";
+	document.getElementById('divAdvtName').style.display="";
+	document.getElementById('divAdvtBarCode').style.display="none";
+
+	document.getElementById('radAdvtName').checked=true;
+	document.getElementById('radAdvtBarCode').checked=false;
+	document.getElementById('radTodCaseList').checked=false;
+	document.getElementById('tr_CaseStatus').style.display="";
+	document.getElementById('radP').checked=true;
+	document.getElementById('radD').checked=false;
+	document.getElementById('radB').checked=false;	
+}
+
+
+function funUpperCase(val)
+{
+	document.getElementById('adv_bar_state').value=val.value.toUpperCase();
+}
+
+function validate()
+{	
+	
+	document.getElementById('showList').style.display='none';
+	document.getElementById('showList1').style.display='none';	
+	document.getElementById('showList2').style.display='none';	
+	document.getElementById('showList3').style.display='none';	
+	document.getElementById('showList4').style.display='none';	
+	document.getElementById('showList5').style.display='none';	
+
+
+	var rad_advtname_val=document.getElementById('radAdvtName').checked;
+	var rad_advtbar_val=document.getElementById('radAdvtBarCode').checked;
+	var rad_todcaselist_val=document.getElementById('radTodCaseList').checked;
+
+
+	
+		if(state_code=="0")
+		{
+			alert("Please Select State");
+			parent.document.getElementById('sess_state_code').focus();
+			return false;
+		}
+
+		if(dist_code=="0")
+		{
+			alert("Please Select District Name");
+			parent.document.getElementById('sess_dist_code').focus();
+			return false;
+		}
+			
+	
+		
+		if(rad_advtname_val==true && rad_advtbar_val==false && rad_todcaselist_val==false)
+		{
+			
+			if(trim(document.getElementById('advocate_name').value)=="" )
+			{
+				alert("Please Enter Advocate Name");
+				document.getElementById('advocate_name').focus();
+				return false;
+			}
+			
+			if(isNaN(document.getElementById('advocate_name').value)== false)
+			{
+				alert("Please Enter Only Alphabets, Single Quotes, Dot  and Space in Advocate Name");
+				document.getElementById('advocate_name').value='';
+				document.getElementById('advocate_name').focus();
+				return false;
+			}		
+			var fname=document.getElementById('advocate_name').value;
+
+			if (fname.length <3)
+			{
+				alert("Please Enter Atleast 3 char in Advocate");
+				document.getElementById('advocate_name').focus();
+				return false;
+			}
+
+	
+			
+			if(fname!="")
+			{
+				if(sesslangid=='Y')
+				{
+					
+					if (fname.charCodeAt(0)==34 || fname.charCodeAt(0)==39)
+					{
+						alert("Name cannot start with quotes");
+						document.getElementById('advocate_name').value="";
+						document.getElementById('advocate_name').focus(); 
+						return false;	
+					}
+					
+					for(i=0;i<fname.length;i++) 
+					 {
+						var schar = fname.charAt(i);
+						var achar = schar.charCodeAt(0);				
+
+						if((achar>=65 && achar<=90)||(achar>=97 && achar<=122))
+						{
+							alert("Please Enter Name in Regional Language");
+							document.getElementById('advocate_name').value="";
+							document.getElementById('advocate_name').focus(); 
+							return false;				
+
+						}
+				
+
+						if((achar>=33 && achar <=38) || (achar>=40 && achar <=45) ||(achar>=47 && achar <=64))
+						{
+							alert("Please Enter Only Alphabets, Single Quotes, Dot  and Space in Advocate Name");
+							document.getElementById('advocate_name').value="";
+							document.getElementById('advocate_name').focus(); 
+							return false;
+						}	
+					 }
+				}
+				else
+				{
+				
+					if (!fname.match(/^[a-zA-Z."'" ]+$/) && fname !="")
+					{
+						alert("Please Enter Only Alphabets, Single Quotes, Dot  and Space in Advocate Name");
+						document.getElementById('advocate_name').value="";
+						document.getElementById('advocate_name').focus(); 
+						return false;				
+					}
+					
+
+					if (fname.charCodeAt(0)==34 || fname.charCodeAt(0)==39)
+					{
+						alert("Name cannot start with quotes");
+						document.getElementById('advocate_name').value="";
+						document.getElementById('advocate_name').focus(); 
+						return false;	
+					}
+					
+
+					 for(i=0;i<fname.length;i++) 
+					 {
+						var schar = fname.charAt(i);
+						var achar = schar.charCodeAt(0);	
+						
+						if((achar>=33 && achar <=38) || (achar>=40 && achar <=45) ||(achar>=47 && achar <=64))
+						{
+							alert("Please Enter Only Alphabets, Single Quotes, Dot  and Space in Advocate Name");
+							document.getElementById('advocate_name').value="";
+							document.getElementById('advocate_name').focus(); 
+							return false;
+						}	
+						
+					 }		
+				
+				}
+			}
+		
+if(document.getElementById('captcha').value == "")
+	{
+		alert("Please Enter Captcha Text" );		
+		document.getElementById('captcha').focus();
+		return false;
+	}	
+				document.getElementById('errSpan').style.display="none";
+		document.getElementById('showList').style.display='none';
+			document.getElementById('divWait').style.display='block';
+			document.getElementById('waitmsg').focus();
+	
+			setTimeout(function(){ funShowRec(); }, 1000);
+			
+		}
+
+
+		if(rad_advtname_val==false && rad_advtbar_val==true && rad_todcaselist_val==false)
+		{
+			
+			var fbarstate=document.getElementById('adv_bar_state').value;
+			var fbarcode=document.getElementById('adv_bar_code').value;
+			var fbaryear=document.getElementById('adv_bar_year').value;
+
+			if(trim(fbarstate)== "")
+			{
+				alert("Please Enter Advocate Bar Code");
+				document.getElementById('adv_bar_state').focus();
+				return false;
+			}
+			if (fbarstate.length <1)
+			{
+				alert("Please Enter Atleast 3 char in Advocate");				
+				document.getElementById('adv_bar_state').focus();
+				return false;
+			}
+			if(fbarstate!="")
+			{
+				if (!fbarstate.match(/^[a-zA-Z]+$/) && fbarstate !="")
+				{
+					alert("Please Enter Only Alphabets");
+					document.getElementById('adv_bar_state').value="";
+					document.getElementById('adv_bar_state').focus(); 
+					return false;				
+				}
+			}
+			
+			
+			if(trim(fbarcode)== "")
+			{
+				alert("Please Enter Advocate Bar Code");
+				document.getElementById('adv_bar_code').focus();
+				return false;
+			}
+			
+			if (fbarcode.length <1)
+			{
+				alert("Please Enter Atleast 3 char in Advocate");				
+				document.getElementById('adv_bar_code').focus();
+				return false;
+			}
+
+			if(fbarcode!="")
+			{
+				if (!fbarcode.match(/^[a-zA-Z0-9]+$/) && fbarcode !="")
+				{
+					alert("Please Enter Only Alphabets,Numbers");
+					document.getElementById('adv_bar_code').value="";
+					document.getElementById('adv_bar_code').focus(); 
+					return false;				
+				}
+			}
+					
+			if(trim(fbaryear)== "")
+			{
+				alert("Please Enter Advocate Bar Code");
+				document.getElementById('adv_bar_year').focus();
+				return false;
+			}
+		
+			if (fbaryear.length!=4)
+			{
+				alert("Please Enter Year in 4 digit");				
+				document.getElementById('adv_bar_year').focus();
+				return false;
+			}
+
+			if(fbaryear!="")
+			{
+				if (!fbaryear.match(/^[0-9]+$/) && fbaryear !="")
+				{
+					alert("Please Enter Only Numbers");
+					document.getElementById('adv_bar_year').value="";
+					document.getElementById('adv_bar_year').focus(); 
+					return false;				
+				}
+			}	
+			if(document.getElementById('captcha').value == "")
+	{
+		alert("Please Enter Captcha Text" );		
+		document.getElementById('captcha').focus();
+		return false;
+	}	
+				document.getElementById('errSpan').style.display="none";
+		document.getElementById('showList').style.display='none';
+			document.getElementById('divWait').style.display='block';
+			document.getElementById('waitmsg').focus();
+	
+			setTimeout(function(){ funShowRec(); }, 1000);
+		}
+
+
+
+		if(rad_advtname_val==false && rad_advtbar_val==false && rad_todcaselist_val==true)
+		{
+			var fbarstate=document.getElementById('adv_bar_state').value;
+			var fbarcode=document.getElementById('adv_bar_code').value;
+			var fbaryear=document.getElementById('adv_bar_year').value;
+
+			if(trim(fbarstate)== "")
+			{
+				alert("Please Enter Advocate Bar Code");
+				document.getElementById('adv_bar_state').focus();
+				return false;
+			}
+			if (fbarstate.length <1)
+			{
+				alert("Please Enter Atleast 3 char in Advocate");				
+				document.getElementById('adv_bar_state').focus();
+				return false;
+			}
+
+			if(fbarstate!="")
+			{
+				if (!fbarstate.match(/^[a-zA-Z]+$/) && fbarstate !="")
+				{
+					alert("Please Enter Only Alphabets");
+					document.getElementById('adv_bar_state').value="";
+					document.getElementById('adv_bar_state').focus(); 
+					return false;				
+				}
+			}
+			
+			
+			if(trim(fbarcode)== "")
+			{
+				alert("Please Enter Advocate Bar Code");
+				document.getElementById('adv_bar_code').focus();
+				return false;
+			}
+			
+			if (fbarcode.length <1)
+			{
+				alert("Please Enter Atleast 3 char in Advocate");				
+				document.getElementById('adv_bar_code').focus();
+				return false;
+			}
+
+			if(fbarcode!="")
+			{
+				if (!fbarcode.match(/^[a-zA-Z0-9]+$/) && fbarcode !="")
+				{
+					alert("Please Enter Only Alphabets,Numbers");
+					document.getElementById('adv_bar_code').value="";
+					document.getElementById('adv_bar_code').focus(); 
+					return false;				
+				}
+			}
+					
+			if(trim(fbaryear)== "")
+			{
+				alert("Please Enter Advocate Bar Code");
+				document.getElementById('adv_bar_year').focus();
+				return false;
+			}
+		
+			if (fbaryear.length!=4)
+			{
+				alert("Please Enter Year in 4 digit");				
+				document.getElementById('adv_bar_year').focus();
+				return false;
+			}
+
+			if(fbaryear!="")
+			{
+				if (!fbaryear.match(/^[0-9]+$/) && fbaryear !="")
+				{
+					alert("Please Enter Only Numbers");
+					document.getElementById('adv_bar_year').value="";
+					document.getElementById('adv_bar_year').focus(); 
+					return false;				
+				}
+			}
+
+
+			var caselist_date=document.getElementById('caselist_date').value;
+
+			if(caselist_date=="")
+			{
+				alert("Select Case List Date");
+
+				document.getElementById('caselist_date').value=curDMY;
+				document.getElementById('caselist_date').focus();
+
+				return false;
+			}
+
+			if(caselist_date!="")
+			{
+				var re = /^\d{1,2}\-\d{1,2}\-\d{4}$/; 
+				
+				if(caselist_date.value != '' && !caselist_date.match(re)) 
+				{ 
+					alert("Enter Date in dd-mm-yyyy format"); 
+					document.getElementById('caselist_date').value="";
+					document.getElementById('caselist_date').focus(); 
+					return false; 
+				}
+
+
+
+				var today = new Date();
+
+				var toddd = today.getDate();
+				var todmm = today.getMonth()+1; //January is 0!
+				var todyyyy = today.getFullYear();
+				if(toddd<10)
+				{
+					toddd='0'+toddd
+				} 
+				if(todmm<10){
+					todmm='0'+todmm
+				} 
+				var curYMD = todyyyy+'-'+todmm+'-'+toddd;
+				var curDMY = toddd+'-'+todmm+'-'+todyyyy;
+
+
+				var caselist_date_split=caselist_date.split('-');
+
+				var caselist_date_y=caselist_date_split[2];
+
+				var caselist_date_m=parseInt(caselist_date_split[1])-1;
+				if(caselist_date_m<10)
+				{
+					caselist_date_m='0'+caselist_date_m;
+				} 
+
+				var caselist_date_d=caselist_date_split[0];
+				if(caselist_date_d<10)
+				{
+					caselist_date_d='0'+caselist_date_d;
+				} 
+
+				var seldate= new Date(caselist_date_y,caselist_date_m,caselist_date_d); 
+
+
+				 var one_day=1000*60*60*24;
+
+				 var today_ms = today.getTime();
+				 var seldate_ms = seldate.getTime();
+				
+				 var daysdiff=Math.ceil(((today_ms-seldate_ms)/(one_day))-1);
+
+				if(daysdiff>=8)
+				{
+					 alert("Only last 7 days date selection allowed"); 
+					 document.getElementById('caselist_date').focus();
+					 return false;
+				}
+			}
+			if(document.getElementById('captcha').value == "")
+	{
+		alert("Please Enter Captcha Text" );		
+		document.getElementById('captcha').focus();
+		return false;
+	}	
+	document.getElementById('errSpan').style.display="none";
+		document.getElementById('showList').style.display='none';
+		document.getElementById('divWait').style.display='block';
+			document.getElementById('waitmsg').focus();
+	
+			setTimeout(function(){ funShowTodayCaseList(); }, 1000);			
+		}				
+
+ }
+
+
+function funCourtEstChange()
+{
+	document.getElementById('showList').style.display='none';
+	document.getElementById('showList1').style.display='none';	
+	document.getElementById('showList2').style.display='none';	
+	document.getElementById('showList3').style.display='none';	
+	document.getElementById('showList4').style.display='none';	
+	document.getElementById('showList5').style.display='none';	
+
+	document.getElementById('errSpan').style.display='none';
+
+
+	document.getElementById('radP').checked=true;
+	document.getElementById('radD').checked=false;
+	document.getElementById('radB').checked=false;
+
+	document.getElementById('radAdvtName').checked=true;
+	document.getElementById('radAdvtBarCode').checked=false;
+
+	document.getElementById('advocate_name').value='';
+
+	document.getElementById('adv_bar_state').value='';
+	document.getElementById('adv_bar_code').value='';
+	document.getElementById('adv_bar_year').value='';
+
+	
+	document.getElementById('divAdvtName').style.display="";
+	document.getElementById('divAdvtBarCode').style.display="none";	
+
+	document.getElementById('divCaseListCal').style.display="none";	
+
+	document.getElementById('radP').checked=true;
+	document.getElementById('radD').checked=false;
+	document.getElementById('radB').checked=false;	
+	document.getElementById('divAdvtSel').style.display="";
+}
+
+
+function funShowRec()
+{	
+	
+
+	var rad_advtname_val=document.getElementById('radAdvtName').checked;
+	var rad_advtbar_val=document.getElementById('radAdvtBarCode').checked;
+	var rad_todcaselist_val=document.getElementById('radTodCaseList').checked;
+
+	if(document.getElementById('radP').checked==true)
+	{
+		var f='Pending';
+	}
+	if(document.getElementById('radD').checked==true)
+	{
+		var f='Disposed';
+	}
+	if(document.getElementById('radB').checked==true)
+	{
+		var f='Both';
+	}
+
+
+	var send_str="&state_code="+state_code;
+	send_str+="&dist_code="+dist_code;
+	send_str+="&court_code="+court_code;
+
+	if(rad_advtname_val==true && rad_advtbar_val==false && rad_todcaselist_val==false) 
+	{
+		var advocate_name=document.getElementById('advocate_name').value;
+		var search_type='1';
+		send_str+="&advocate_name="+advocate_name;
+	}
+	else if(rad_advtname_val==false && rad_advtbar_val==true && rad_todcaselist_val==false) 
+	{
+		var adv_bar_state=document.getElementById('adv_bar_state').value;
+		var adv_bar_code=document.getElementById('adv_bar_code').value;
+		var adv_bar_year=document.getElementById('adv_bar_year').value;
+
+		var search_type='2';
+		send_str+="&adv_bar_state="+adv_bar_state;
+		send_str+="&adv_bar_code="+adv_bar_code;
+		send_str+="&adv_bar_year="+adv_bar_year;
+	}
+	else if(rad_advtname_val==false && rad_advtbar_val==false && rad_todcaselist_val==true) 
+	{
+		var search_type='3';
+	}
+
+
+		
+	send_str+="&search_type="+search_type;		
+	send_str+="&f="+f;
+
+		send_str+="&captcha="+document.getElementById('captcha').value;
+
+		
+
+	var data_listP= xmlHTTP_send_post(qry_file_name,"action_code=showRecords"+send_str);
+	data_listP=escapeHtml(data_listP);
+//alert('data_listP='+data_listP)
+								refreshCaptcha();
+
+	
+if(data_listP.substring(0,5).toUpperCase()=='ERROR')
+	{
+			document.getElementById('showList').style.display="none";				
+			document.getElementById('divWait').style.display='none';
+			document.getElementById('errSpan').style.display="block";
+			if(data_listP=='error1' || data_listP=='Invalid Captcha'){
+                var val= "Invalid Captcha";
+			}else if(data_listP=='error3'){
+                var val= "Year Must Be In Numeric Format Or 4 Digits";
+			}else if(data_listP=='errorDataLimit'){
+                                 var val="Access Limit Exceeded. Please Try after sometime.";
+                        }  else if(data_listP=='error4'){
+			var val= "Please Select One Value";
+			}else if(data_listP=='error7'){
+				var val= "Invalid Name";
+			}else if(data_listP=='error8'){
+				var val= "Invalid Search Type";
+			}else if(data_listP=='error9'){
+				var val= "Invalid Bar State";
+			}else if(data_listP=='error10'){
+				var val= "Invalid Bar Code";
+			}else if(data_listP=='error11'){
+				var val= "Invalid Date";
+			}else {
+				var val= "There Is An Error";
+			}
+			document.getElementById('txtmsg').value=val;
+			document.getElementById("txtmsg").title =val;
+			document.getElementById('txtmsg').focus();
+	}
+	else if(data_listP=='')
+	{
+			document.getElementById('showList').style.display="none";				
+			document.getElementById('divWait').style.display='none';
+			document.getElementById('errSpan').style.display="block";
+			var val="Record Not Found";
+			document.getElementById('txtmsg').value=val;
+			document.getElementById("txtmsg").title =val;
+			document.getElementById('txtmsg').focus();
+	}	
+	else 
+	{	
+	
+		displayRecords(data_listP);
+		document.getElementById('showList').style.display='';		
+		document.getElementById('divWait').style.display='none';
+		document.getElementById('totmsg').focus();
+	}
+
+}
+
+
+
+
+function displayRecordsDateList(data_listP)
+{	
+//alert(data_listP);	
+	document.getElementById('showList1').style.display='none';
+	document.getElementById('showList2').style.display='none';
+	document.getElementById('showList3').style.display='none';
+	document.getElementById('showList4').style.display='none';	
+	document.getElementById('showList5').style.display='none';	
+
+	var caselist_date_dmy=document.getElementById('caselist_date').value;
+
+	
+	var data_listP_arr=new Array();
+	var data_listP_a=new Array();
+	var a='';
+	var j=0;
+	data_listP_arr=data_listP.split('##');
+	
+	var setData='';
+	var setData1='';
+	var temp='';
+	var total_rec=data_listP_arr.length-1;
+
+
+	if(parseInt(total_rec) > 0)
+	{
+		document.getElementById('showList4').style.display='';
+
+		for(var k=0;k<total_rec;k++)
+		{
+
+			a=data_listP_arr[parseInt(k)];
+			j=parseInt(k)+1;
+			data_listP_a=a.split('~');
+//alert(data_listP_a);
+			if(k==0)
+			{			
+				var titleone="Date Case List&nbsp;:&nbsp"+caselist_date_dmy+"<br/>"+"Advocate Name&nbsp;:&nbsp"+data_listP_a[7]+"<br/>Total Number of Cases&nbsp;:&nbsp;"+total_rec;
+				
+				setData1+="<tr><td><div style='text-align:center;width:100%;color:#ff0000;font-weight:bold;'><h2 class='h2class'>"+titleone+"</h2></div></td></tr>";
+			}
+			
+			/*if(data_listP_a[4]!=temp && radOpt=='court_complex')
+			{				
+
+				totrecArr=data_listP_a[6].split('@#');
+				setData+="<tr><td style='color:#559DE7; font-weight:bold;text-decoration: underline;' id='td_court_name_"+data_listP_a[4]+"' colspan=5 >"+totrecArr[0]+"</td></tr>";
+				
+				setData1+="<tr><td><div style='text-align:center;width:100%;'><a style='color:#559DE7; font-weight:bold;text-decoration: underline;'  href='#td_court_name_"+data_listP_a[4]+"'>"+totrecArr[0]+"&nbsp;:&nbsp;"+data_listP_a[5]+"</a></div></td></tr>";
+
+				temp=data_listP_a[4];
+			}*/
+		//	alert(data_listP_a[9]);
+			setData+='<tr><td valign=\"top\">'+j+'</td>';
+			setData+="<td valign=\"top\">"+data_listP_a[1]+"</td>";
+			setData+="<td valign=\"top\"><h2 class='h2class'>"+data_listP_a[2]+"</h2></td>";
+		//	setData+="<td valign=\"top\">"+data_listP_a[1]+data_listP_a[2]+data_listP_a[3]+data_listP_a[4]+data_listP_a[5]+data_listP_a[6]++data_listP_a[7]+data_listP_a[8]++data_listP_a[9]+data_listP_a[10]+"</td>";
+			setData += "<td valign=\"top\">"  + data_listP_a[9] + "</td>";
+
+			setData+="<td valign=\"top\">"+data_listP_a[10]+"</td></tr>";		
+		}
+	}
+	else
+	{
+		setData1+="<tr><td><div style='text-align:center;width:100%;color:#ff0000;font-weight:bold;'><h2 class='h2class'>Record Not Found</h2></div></td></tr>";
+		refreshCaptcha();
+	}
+	
+	document.getElementById('showList5').innerHTML=setData;
+	document.getElementById('showList5').style.display='';
+	document.getElementById('showList2').innerHTML=setData1;	
+	document.getElementById('showList2').style.display='';
+	document.getElementById('showList').style.display='';
+	
+}
+
+
+function displayRecords(data_listP)
+{	
+	document.getElementById('showList1').style.display='none';
+	document.getElementById('showList2').style.display='none';
+	document.getElementById('showList3').style.display='none';
+	document.getElementById('showList4').style.display='none';	
+	document.getElementById('showList5').style.display='none';	
+
+	
+	var advocate_name=document.getElementById('advocate_name').value;
+	var rad_advtname_val=document.getElementById('radAdvtName').checked;
+	var rad_advtbar_val=document.getElementById('radAdvtBarCode').checked;
+	var rad_todcaselist_val=document.getElementById('radTodCaseList').checked;
+
+	if(rad_advtname_val==true && rad_advtbar_val==false && rad_todcaselist_val==false) 
+	{
+		var search_type='1';
+	}
+	else if(rad_advtname_val==false && rad_advtbar_val==true && rad_todcaselist_val==false) 
+	{
+		var search_type='2';
+	}
+	else if(rad_advtname_val==false && rad_advtbar_val==false && rad_todcaselist_val==true) 
+	{
+		var search_type='3';
+	}
+	
+
+
+	var data_listP_arr=new Array();
+	var data_listP_a=new Array();
+	var a='';
+	var j=0;
+
+
+	data_listP_arr=data_listP.split('##');
+	
+	var setData='';
+	var setData1='';
+	var temp='';
+	var total_rec=data_listP_arr.length-1;
+
+	if(parseInt(total_rec) > 0)
+	{	
+		document.getElementById('showList3').style.display='';
+
+		for(var k=0;k<total_rec;k++)
+		{
+			a=data_listP_arr[parseInt(k)];
+			j=parseInt(k)+1;
+			data_listP_a=a.split('~');
+
+			if(k==0)
+			{
+				if(search_type==1)
+				{
+					var titleone="<br/><b>Total Number of Cases</b>&nbsp;:&nbsp;"+total_rec;
+				}
+				else if(search_type==2)
+				{
+					var titleone="<br/><b>Advocate Name</b>&nbsp;:&nbsp;"+data_listP_a[8]+"<br/><b>Total Number of Cases</b>&nbsp;:&nbsp;"+total_rec;
+				}
+			
+				setData1+="<tr><td><div style='text-align:center;width:100%;color:#ff0000;font-weight:bold;'><h2 class='h2class'>"+titleone+"</h2></div></td></tr>";
+			}
+
+			
+			
+
+
+			setData+='<tr><td valign=\"top\">'+j+'</td>';
+			setData+="<td width='25%' valign=\"top\">"+data_listP_a[1]+"</td>";
+			setData+="<td valign=\"top\">"+data_listP_a[2]+"</td>";
+			setData+="<td valign=\"top\"><h2 class='h2class'>"+data_listP_a[7]+"</h2></td>";
+			setData+="<td width='10%'  valign=\"top\";><a href='#' onclick=\"viewHistory('"+data_listP_a[0]+"','"+data_listP_a[3]+"','"+data_listP_a[4]+"','"+data_listP_a[9]+"')\" >View</a><span style='font-size:0.00000000001px; color:#fff;'>details for case number "+data_listP_a[1]+"</span></td></tr>";		
+		}
+	}
+	else
+	{
+		setData1+="<tr><td><div style='text-align:center;width:100%;color:#ff0000;font-weight:bold;'><h2 class='h2class'><br/>Record Not Found</h2></div></td></tr>";
+				refreshCaptcha();
+
+	}
+
+	document.getElementById('showList1').innerHTML=setData;
+	document.getElementById('showList1').style.display='';
+	document.getElementById('showList2').innerHTML=setData1;	
+	document.getElementById('showList2').style.display='';
+	document.getElementById('showList').style.display='';
+	
+	
+
+}
+
+
+function viewHistory(case_no,cino,sel_court_code,token)
+{
+	document.getElementById('firstpage').style.display='none';
+
+	var send_str="court_code="+sel_court_code;
+	send_str+="&state_code="+state_code;
+	send_str+="&dist_code="+dist_code;
+	send_str+="&case_no="+case_no;
+	send_str+="&cino="+cino;
+	send_str+="&token="+token;
+	send_str+="&appFlag="+"";
+
+	var data_list= xmlHTTP_send_post('o_civil_case_history.php',send_str);
+	document.getElementById('back_top').style.display='';
+	document.getElementById('back_bottom').style.display='';
+	document.getElementById('secondpage').innerHTML=data_list;
+
+	document.getElementById('firstpage').style.display='none';
+	newcss();
+}
+
+function funBack()
+{
+	document.getElementById('firstpage').style.display='';
+	document.getElementById('back_top').style.display='none';
+	document.getElementById('back_bottom').style.display='none';
+	document.getElementById('secondpage').innerHTML='';
+	document.getElementById('captcha').value='';
+	refreshCaptcha();
+}
+function refreshCaptcha()
+{
+	var captchaObj=document.getElementsByName('captcha');
+	captchaObj[0].value='';
+	captchaObj[0].focus();
+	if (typeof window.captcha_image_audioObj !== 'undefined') captcha_image_audioObj.refresh(); document.getElementById('captcha_image').src = '../securimage/securimage_show.php?' + Math.random(); this.blur();
+}
+
+function playAudioInline(sesscode)
+{
+	
+
+var myarray=sesscode.split('');
+var audio1 = document.getElementById('audio1');
+var audio2 = document.getElementById('audio2');
+var audio3 = document.getElementById('audio3');
+var audio4 = document.getElementById('audio4');
+
+for(i=0;i<myarray.length;i++)
+{
+
+
+	 audio1.src='audio/'+myarray[0]+'.mp3';
+	 audio1.load();      
+	  audio2.pause();
+	  audio3.pause();
+	  audio4.pause();
+	   audio1.play();
+	 
+	
+	audio1.onended = function() {
+		
+	audio2.src='audio/'+myarray[1]+'.mp3';
+
+	 audio2.load();      
+	 audio1.pause();
+	 audio3.pause();
+	 audio4.pause();
+	 audio2.play();
+	
+	}
+	
+	
+		audio2.addEventListener("ended", function() {
+	audio3.src='audio/'+myarray[2]+'.mp3';
+	 audio3.load(); 	  
+	 audio1.pause();
+	 audio2.pause();
+	 audio4.pause();
+	  audio3.play();
+		
+		});
+	
+
+	audio3.addEventListener("ended", function() {
+	audio4.src='audio/'+myarray[3]+'.mp3';
+	audio4.load(); 
+	audio1.pause();
+	audio2.pause();
+	audio3.pause();
+     audio4.play();
+});
+	
+	
+
+}
+
+}
+
+function play()
+{
+
+var data_list= xmlHTTP_send_post('audiocaptcha.php');
+playAudioInline(data_list)
+}
+
+//function viewBusiness(dist_code,n_dt,case_number,state_code,businessStatus,todays_date1,court_no)
+function viewBusiness(court_code,dist_code,n_dt,case_number,state_code,businessStatus,todays_date1,court_no,srno)
+
+{
+	var send_str="dist_code="+dist_code;
+	send_str+="&nextdate1="+n_dt;
+	send_str+="&case_number1="+case_number;
+	send_str+="&state_code="+state_code;
+	send_str+="&disposal_flag="+businessStatus;
+	send_str+="&businessDate="+todays_date1;
+	send_str+="&court_no="+court_no;
+	send_str+="&appFlag="+"";
+	send_str+="&court_code="+court_code;
+	send_str+="&srno="+srno;
+
+
+	var data_list= xmlHTTP_send_post('s_show_business.php',send_str);
+	
+	document.getElementById('thirdpage').innerHTML=data_list;
+
+	document.getElementById('secondpage').style.display='none';
+	document.getElementById('back_bottom').style.display='none';
+	document.getElementById('back_top').style.display='none';
+	document.getElementById('back_business').style.display='';
+	newcss();
+}
+
+
+function viewAuth(dist_code,state_code,case_number)
+{
+	var app_cs_no=document.getElementById('spanappView').text;
+	
+	var send_str="dist_code="+dist_code;
+	send_str+="&case_number1="+case_number;
+	send_str+="&state_code="+state_code;
+	send_str+="&app_cs_no="+app_cs_no;
+	send_str+="&appFlag="+"";
+	
+	var data_list= xmlHTTP_send_post('s_show_app.php',send_str);
+	
+	document.getElementById('fourthpage').innerHTML=data_list;
+	
+	document.getElementById('secondpage').style.display='none';
+	document.getElementById('back_bottom').style.display='none';
+	document.getElementById('back_top').style.display='none';
+	document.getElementById('back_business').style.display='none';
+	document.getElementById('back_auth').style.display='';
+	newcss();
+}
+
+
+function funShowAuth()
+{
+	document.getElementById('secondpage').style.display='';
+	document.getElementById('back_top').style.display='';
+	document.getElementById('back_bottom').style.display='';
+	document.getElementById('fourthpage').innerHTML='';
+	document.getElementById('back_business').style.display='none';
+	document.getElementById('back_auth').style.display='none';
+}
+
+
+function funBackBusiness()
+{
+	document.getElementById('secondpage').style.display='';
+	document.getElementById('back_top').style.display='';
+	document.getElementById('back_bottom').style.display='';
+	document.getElementById('thirdpage').innerHTML='';
+	document.getElementById('back_business').style.display='none';
+}
+
+
+function funShowTodayCaseList()
+{
+
+
+	var adv_bar_state=document.getElementById('adv_bar_state').value;
+	var adv_bar_code=document.getElementById('adv_bar_code').value;
+	var adv_bar_year=document.getElementById('adv_bar_year').value;
+
+	var rad_advtname_val=document.getElementById('radAdvtName').checked;
+	var rad_advtbar_val=document.getElementById('radAdvtBarCode').checked;
+	var rad_todcaselist_val=document.getElementById('radTodCaseList').checked;
+
+	var caselist_date_dmy=document.getElementById('caselist_date').value;
+
+		
+	if(rad_advtname_val==false && rad_advtbar_val==false && rad_todcaselist_val==true) 
+	{
+		var search_type='3';
+	}
+
+	
+	var send_str="&state_code="+state_code;
+	send_str+="&dist_code="+dist_code;
+
+	send_str+="&adv_bar_state="+adv_bar_state;
+	send_str+="&adv_bar_code="+adv_bar_code;
+	send_str+="&adv_bar_year="+adv_bar_year;
+	send_str+="&search_type="+search_type;
+	send_str+="&caselist_date_dmy="+caselist_date_dmy;
+	send_str+="&captcha="+document.getElementById('captcha').value;
+	send_str+="&court_code="+court_code;
+
+
+	var data_listP= xmlHTTP_send_post(qry_file_name,"action_code=showDateCaseList"+send_str);
+			refreshCaptcha();
+
+	
+		
+if(data_listP.substring(0,5).toUpperCase()=='ERROR')
+	{
+			document.getElementById('showList').style.display="none";				
+			document.getElementById('divWait').style.display='none';
+			document.getElementById('errSpan').style.display="block";
+			if(data_listP=='error1'){
+                var val= "Invalid Captcha";
+			}else if(data_listP=='error3'){
+                var val= "Year Must Be In Numeric Format Or 4 Digits";
+			}else if(data_listP=='error4'){
+			var val= "Please Select One Value";
+			}else if(data_listP=='error7'){
+				var val= "Invalid Name";
+			}else if(data_listP=='error8'){
+				var val= "Invalid Search Type";
+			}else if(data_listP=='error9'){
+				var val= "Invalid Bar State";
+			}else if(data_listP=='error10'){
+				var val= "Invalid Bar Code";
+			}else if(data_listP=='error11'){
+				var val= "Invalid Date";
+			}else {
+				var val= "There Is An Error";
+			}
+			document.getElementById('txtmsg').value=val;
+			document.getElementById("txtmsg").title =val;
+			document.getElementById('txtmsg').focus();
+			refreshCaptcha();
+	}
+	else if(data_listP=='')
+	{
+			document.getElementById('showList').style.display="none";				
+			document.getElementById('divWait').style.display='none';
+			document.getElementById('errSpan').style.display="block";
+			var val="Record Not Found";
+			document.getElementById('txtmsg').value=val;
+			document.getElementById("txtmsg").title =val;
+			document.getElementById('txtmsg').focus();
+	}	
+	else 
+	{	
+	
+		displayRecordsDateList(data_listP);
+		document.getElementById('showList').style.display='';
+		document.getElementById('divWait').style.display='none';
+		document.getElementById('totmsg').focus();
+	}
+
+
+} //Function End
+
+
+
+function funShowSearchType()
+{	
+	document.getElementById('advocate_name').value="";
+	document.getElementById('adv_bar_state').value="";
+	document.getElementById('adv_bar_code').value="";
+	document.getElementById('adv_bar_year').value="";
+	document.getElementById('radP').checked=true;
+	document.getElementById('radD').checked=false;
+	document.getElementById('radB').checked=false;	
+	document.getElementById('showList').innerHTML="";
+	document.getElementById('showList').style.display="none";
+	document.getElementById('showList1').style.display="none";
+	document.getElementById('showList2').style.display="none";
+	document.getElementById('showList3').style.display="none";
+	document.getElementById('showList4').style.display='none';	
+
+	if(document.getElementById('radAdvtName').checked) 
+	{
+		document.getElementById('divAdvtName').style.display="";
+		document.getElementById('divAdvtBarCode').style.display="none";
+		document.getElementById('tr_CaseStatus').style.display="";
+		document.getElementById('divCaseListCal').style.display="none";
+	}
+	else if(document.getElementById('radAdvtBarCode').checked) 
+	{
+		document.getElementById('divAdvtName').style.display="none";
+		document.getElementById('divAdvtBarCode').style.display="";
+		document.getElementById('tr_CaseStatus').style.display="";
+		document.getElementById('divCaseListCal').style.display="none";
+	}
+	else if(document.getElementById('radTodCaseList').checked) 
+	{
+		document.getElementById('advocate_name').value="";
+		document.getElementById('divAdvtName').style.display="none";
+		document.getElementById('divAdvtBarCode').style.display="";
+		document.getElementById('tr_CaseStatus').style.display="none";
+		document.getElementById('caselist_date').value=curDMY;
+		document.getElementById('divCaseListCal').style.display="";
+	}
+}
+
+
+function reg_lang(setPramukeLang)
+{
+	if(sesslangid=='')
+	{
+		pramukhIME.addLanguage(PramukhIndic,"english"); 
+		pramukhIME.enable();
+	}
+	else
+	{	
+		if(setPramukeLang=='Y')
+		{
+		var pramukhe_lang="";
+		pramukhIME.addLanguage(PramukhIndic,pramukhe_lang); 
+		pramukhIME.enable();
+		}
+		else
+		{
+			pramukhIME.addLanguage(PramukhIndic,"english"); 
+			pramukhIME.enable();
+		}
+	}
+}
+
+
+
+function clearShowList()
+{
+	document.getElementById('showList').style.display="none";
+	document.getElementById('showList1').style.display="none";
+	document.getElementById('showList2').style.display="none";
+	document.getElementById('showList3').style.display="none";
+	document.getElementById('showList4').style.display='none';	
+}
+
+
+//]]>
+</script>
+
+
+<script>
+var d = new Date();
+var curr_year=d.getFullYear();
+if(document.getElementById('adv_bar_year').value <1801|| document.getElementById('adv_bar_year').value >curr_year)
+			{
+				alert("Please Enter Year between 1901 to " + curr_year);
+				document.getElementById('adv_bar_year').value="";
+				document.getElementById('adv_bar_year').focus();
+				return false;
+			}
+			if(document.getElementById('adv_bar_year').value > curr_year)
+			{
+				alert("Year Should Not Greater than Current Year");
+				document.getElementById('adv_bar_year').value="";
+				document.getElementById('adv_bar_year').focus();
+				return false;
+			}		
+</script>
+
+<script type="text/javascript">CsrfMagic.end();</script></body>
+</html>
