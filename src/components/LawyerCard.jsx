@@ -1,28 +1,32 @@
 import Link from "next/link";
 import { User, ShieldAlert, Award, Calendar, BarChart2 } from "lucide-react";
 
-export default function LawyerCard({ lawyer, searchQuery, searchPracticeArea }) {
+export default function LawyerCard({ lawyer = {}, searchQuery = "", searchPracticeArea = "" }) {
   // 1. Calculate statistics
-  const cases = lawyer.cases || [];
+  const cases = lawyer?.cases || [];
   const totalCases = cases.length;
-  const disposedCases = cases.filter(c => c.status === "Disposed");
+  const disposedCases = cases.filter(c => c?.status === "Disposed");
   const disposedCount = disposedCases.length;
   const pendingCount = totalCases - disposedCount;
 
   // Level: 60 + experience (capped at 99)
-  const level = Math.min(99, 60 + lawyer.experience);
+  const experience = lawyer?.experience || 0;
+  const level = Math.min(99, 60 + experience);
 
   // Overall Rating: 70 + experience * 0.8 + disposed cases * 0.5 (capped at 99)
   const overallRating = Math.min(
     99,
-    70 + Math.round(lawyer.experience * 0.8) + Math.round(disposedCount * 0.5)
+    70 + Math.round(experience * 0.8) + Math.round(disposedCount * 0.5)
   );
 
   // Match Score calculation (Relevance to user search)
   // If user searched for a practice area or query, we calculate how well this lawyer matches it.
   let matchScore = 90; // default baseline match
+  const practiceArea = lawyer?.practice_area || "";
+  const lawyerName = lawyer?.name || "Unknown Lawyer";
+
   if (searchPracticeArea) {
-    const hasArea = lawyer.practice_area.toLowerCase().includes(searchPracticeArea.toLowerCase());
+    const hasArea = practiceArea.toLowerCase().includes(searchPracticeArea.toLowerCase());
     if (hasArea) {
       matchScore = 95;
     } else {
@@ -30,8 +34,8 @@ export default function LawyerCard({ lawyer, searchQuery, searchPracticeArea }) 
     }
   } else if (searchQuery) {
     const query = searchQuery.toLowerCase();
-    const matchesName = lawyer.name.toLowerCase().includes(query);
-    const matchesArea = lawyer.practice_area.toLowerCase().includes(query);
+    const matchesName = lawyerName.toLowerCase().includes(query);
+    const matchesArea = practiceArea.toLowerCase().includes(query);
     if (matchesName) {
       matchScore = 98;
     } else if (matchesArea) {
@@ -87,13 +91,13 @@ export default function LawyerCard({ lawyer, searchQuery, searchPracticeArea }) 
             {/* Name and Bar Registration */}
             <div>
               <h3 className="text-lg font-bold text-text group-hover:text-primary transition-colors line-clamp-1">
-                {lawyer.name}
+                {lawyerName}
               </h3>
               <p className="text-xs text-accent font-mono tracking-wider">
-                BAR: {lawyer.bar_number}
+                BAR: {lawyer?.bar_number || "N/A"}
               </p>
               <p className="text-[10px] text-text-muted mt-0.5">
-                Level {level} • {lawyer.city}
+                Level {level} • {lawyer?.city || "Unknown Location"}
               </p>
             </div>
           </div>
@@ -112,14 +116,16 @@ export default function LawyerCard({ lawyer, searchQuery, searchPracticeArea }) 
             Practice Specialities
           </span>
           <div className="mt-1 flex flex-wrap gap-1.5">
-            {lawyer.practice_area.split(",").map((area, idx) => (
+            {practiceArea ? practiceArea.split(",").map((area, idx) => (
               <span
                 key={idx}
                 className="rounded bg-surface-2 border border-border/40 px-2 py-0.5 text-[10px] font-medium text-text"
               >
                 {area.trim()}
               </span>
-            ))}
+            )) : (
+              <span className="text-[10px] text-text-muted italic">Not specified</span>
+            )}
           </div>
         </div>
 
@@ -129,7 +135,7 @@ export default function LawyerCard({ lawyer, searchQuery, searchPracticeArea }) 
             <span className="block text-[10px] uppercase font-bold text-text-muted tracking-wider">
               Experience
             </span>
-            <span className="text-sm font-bold text-text">{lawyer.experience} Yrs</span>
+            <span className="text-sm font-bold text-text">{experience} Yrs</span>
           </div>
           <div className="border-l border-r border-border/40">
             <span className="block text-[10px] uppercase font-bold text-text-muted tracking-wider">
@@ -175,7 +181,7 @@ export default function LawyerCard({ lawyer, searchQuery, searchPracticeArea }) 
       {/* Profile Button */}
       <div className="mt-6 border-t border-border/40 pt-4">
         <Link
-          href={`/lawyer/${lawyer.id}`}
+          href={`/lawyer/${lawyer?.id || ""}`}
           className="block w-full text-center rounded-lg border border-primary/50 hover:bg-primary py-2 text-xs font-bold uppercase tracking-wider text-text hover:text-white transition-all duration-200 cursor-pointer"
         >
           VIEW PLAYER PROFILE

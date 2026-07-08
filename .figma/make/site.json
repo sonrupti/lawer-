@@ -1,0 +1,15 @@
+{
+  "title": "Lawyer Platform",
+  "description": "",
+  "language": "en",
+  "robots": {
+    "index": true
+  },
+  "icons": {},
+  "openGraph": {},
+  "analytics": {},
+  "customScripts": {},
+  "accessibility": {
+    "addBypassLinks": false
+  }
+}

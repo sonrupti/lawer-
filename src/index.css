@@ -1,0 +1,180 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Libre Caslon Text';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://static.figma.com/font/LibreCaslonText_wght__1') format('woff2');
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://static.figma.com/font/WorkSans_wght__2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('https://static.figma.com/font/WorkSans_wght__2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('https://static.figma.com/font/WorkSans_wght__2') format('woff2');
+}
+
+@theme {
+  --font-display: 'Libre Caslon Text', Georgia, serif;
+  --font-sans: 'Work Sans', system-ui, sans-serif;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+
+  --radius: 0.5rem;
+}
+
+:root {
+  --bg: #FAFAFA;
+  --surface: #F4F4F5;
+  --surface-2: #E4E4E7;
+  --card: #FFFFFF;
+  --border: rgba(0, 0, 0, 0.08);
+  --primary: #E5A66A;
+  --secondary: #F7D6B2;
+  --accent: #E5A66A;
+  --text: #171717;
+  --text-muted: #71717A;
+
+  /* Legacy aliases to prevent breakage in un-updated components */
+  --color-navy-950: var(--bg);
+  --color-navy-900: var(--text);
+  --color-navy-800: var(--text);
+  --color-navy-700: var(--text-muted);
+  --color-navy-600: var(--text-muted);
+  --color-navy-500: var(--primary);
+  --color-navy-400: var(--primary);
+  --color-navy-300: var(--secondary);
+  --color-navy-200: var(--secondary);
+  --color-navy-100: var(--surface-2);
+  --color-navy-50: var(--surface);
+
+  --color-gold-900: var(--accent);
+  --color-gold-800: var(--accent);
+  --color-gold-700: var(--accent);
+  --color-gold-600: var(--accent);
+  --color-gold-500: var(--accent);
+  --color-gold-400: var(--accent);
+  --color-gold-300: var(--secondary);
+  --color-gold-200: var(--secondary);
+  --color-gold-100: var(--surface-2);
+  --color-gold-50: var(--surface);
+
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-card: var(--card);
+  --color-card-foreground: var(--text);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--bg);
+  --color-secondary: var(--surface);
+  --color-secondary-foreground: var(--text);
+  --color-muted: var(--surface);
+  --color-muted-foreground: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--text);
+  --color-border: var(--border);
+}
+
+.dark {
+  --bg: #0D0D0D;
+  --surface: #171717;
+  --surface-2: #27272A;
+  --card: #1F1F1F;
+  --border: rgba(255, 255, 255, 0.08);
+  --primary: #E5A66A;
+  --secondary: #F7D6B2;
+  --accent: #E5A66A;
+  --text: #FAFAFA;
+  --text-muted: #A1A1AA;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Glassmorphism Utilities */
+.glass-card {
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.glass-card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.glass-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+  border-color: var(--primary);
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+

@@ -1,168 +1,76 @@
-"use client";
-
-import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Scale,
-  ShieldCheck,
-  Sparkles,
-  Database,
-} from "lucide-react";
+import { Scale, Zap, Sparkles, Search, ArrowRight } from "lucide-react";
 
 export default function Hero() {
+  const popularSearches = [
+    "Constitutional Law in Delhi",
+    "Property Disputes in Mumbai",
+    "Bail Petitions in Odisha",
+    "Corporate Structuring",
+  ];
+
   return (
-    <section className="relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-10 h-96 w-96 -translate-x-1/2 rounded-full bg-blue-500/20 blur-[140px]" />
-        <div className="absolute left-20 bottom-0 h-72 w-72 rounded-full bg-cyan-400/10 blur-[120px]" />
-        <div className="absolute right-10 top-20 h-80 w-80 rounded-full bg-yellow-400/10 blur-[140px]" />
-    </div>
+    <div className="relative overflow-hidden py-16 sm:py-24 transition-colors duration-300">
+      {/* Decorative animated background mesh */}
+      <div className="absolute inset-0 z-[-1] overflow-hidden">
+        <div className="absolute -top-[20%] -left-[10%] h-[60%] w-[50%] rounded-full bg-primary/20 blur-[120px] mix-blend-screen animate-blob" />
+        <div className="absolute top-[20%] -right-[10%] h-[60%] w-[50%] rounded-full bg-accent/20 blur-[120px] mix-blend-screen animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-[20%] left-[20%] h-[60%] w-[50%] rounded-full bg-secondary/20 blur-[120px] mix-blend-screen animate-blob animation-delay-4000" />
+      </div>
 
-      <div className="mx-auto max-w-7xl px-6 pt-24 pb-20">
+      <div className="mx-auto max-w-7xl px-6 text-center lg:px-8 relative z-10">
+        
+        {/* Top Badge */}
+        <div className="mx-auto mb-8 inline-flex items-center gap-2 rounded-full border border-border/50 bg-surface/50 backdrop-blur-md px-5 py-2 text-xs font-semibold uppercase tracking-wider text-text transition-all duration-300 hover:border-primary/50 cursor-pointer">
+          <Sparkles className="h-4 w-4 text-primary animate-pulse" />
+          <span>India's First Legal Intelligence Platform</span>
+        </div>
 
-        {/* Badge */}
+        {/* Main Header */}
+        <h1 className="mx-auto max-w-5xl text-5xl font-extrabold tracking-tight sm:text-7xl text-text leading-tight">
+          Find India's Best Lawyers Through{" "}
+          <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
+            Real Court Performance.
+          </span>
+        </h1>
 
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: .6 }}
-          className="flex justify-center"
-        >
-          <div className="glass-card flex items-center gap-2 rounded-full px-5 py-2">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-sm font-medium text-text-muted">
-              India's Legal Intelligence Platform
-            </span>
+        {/* Sub-text */}
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-text-muted">
+          Make data-driven legal decisions. We analyze millions of court judgments to rank advocates based on actual win rates, disposal times, and specialization.
+        </p>
+
+        {/* AI Powered Search Bar */}
+        <div className="mx-auto mt-10 max-w-2xl">
+          <div className="glass-card flex items-center p-2 pl-4 transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary">
+            <Search className="h-5 w-5 text-text-muted" />
+            <input 
+              type="text" 
+              placeholder="Ask anything... e.g. 'Who is the best criminal lawyer in High Court?'"
+              className="flex-1 bg-transparent px-4 py-3 text-sm text-text outline-none placeholder:text-text-muted"
+            />
+            <button className="flex items-center gap-2 rounded-lg bg-text text-bg hover:bg-text/90 px-5 py-3 text-sm font-bold transition-all">
+              <Sparkles className="h-4 w-4" />
+              Search AI
+            </button>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Heading */}
-
-        <motion.div
-          initial={{ opacity: 0, y: 35 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: .15 }}
-          className="mx-auto mt-8 max-w-5xl text-center"
-        >
-          <h1 className="text-5xl font-black tracking-tight text-text md:text-7xl lg:text-8xl leading-[0.95]">
-
-            Find the Right Lawyer
-
-            <span className="block bg-gradient-to-r from-blue-500 via-cyan-400 to-yellow-400 bg-clip-text text-transparent mt-3">
-
-              Using Real Court Records
-
-            </span>
-          </h1>
-
-          <p className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-text-muted md:text-xl">
-            Search advocates by practice area, case history, judges,
-            courts and verified public court data. Discover legal
-            specialists using AI-powered legal intelligence.
-          </p>
-        </motion.div>
-
-        {/* CTA */}
-
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: .3 }}
-          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-        >
-          <button className="group flex items-center gap-2 rounded-xl bg-primary px-8 py-4 text-white font-semibold shadow-lg transition hover:scale-105 hover:shadow-blue-500/30">
-
-            Explore Lawyers
-
-            <ArrowRight className="h-5 w-5 transition group-hover:translate-x-1" />
-
-          </button>
-
-          <button className="glass-card rounded-xl px-8 py-4 font-medium text-text transition hover:scale-105">
-            Learn More
-          </button>
-        </motion.div>
-
-        {/* Stats */}
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: .45 }}
-          className="mt-20 grid grid-cols-2 gap-5 md:grid-cols-4"
-        >
-
-          {[
-            {
-              value: "120K+",
-              label: "Cases Indexed",
-              icon: Database,
-            },
-            {
-              value: "18K+",
-              label: "Advocates",
-              icon: Scale,
-            },
-            {
-              value: "35+",
-              label: "Practice Areas",
-              icon: ShieldCheck,
-            },
-            {
-              value: "100%",
-              label: "Public Court Data",
-              icon: Sparkles,
-            },
-          ].map((item) => (
-            <motion.div
-              whileHover={{
-                y: -6,
-                scale: 1.02,
-              }}
-              key={item.label}
-              className="glass-card glass-card-hover rounded-2xl p-6 text-center"
+        {/* Popular Searches */}
+        <div className="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-center gap-3">
+          <span className="text-xs font-semibold text-text-muted uppercase tracking-wider mr-2">
+            Trending:
+          </span>
+          {popularSearches.map((search, idx) => (
+            <button
+              key={idx}
+              className="group flex items-center gap-1.5 rounded-full border border-border/50 bg-surface/50 px-4 py-1.5 text-xs font-medium text-text-muted hover:border-primary/50 hover:text-text transition-all duration-200"
             >
-              <item.icon className="mx-auto h-8 w-8 text-primary mb-4" />
-
-              <h3 className="text-3xl font-black text-text">
-                {item.value}
-              </h3>
-
-              <p className="mt-2 text-sm text-text-muted">
-                {item.label}
-              </p>
-            </motion.div>
+              {search}
+              <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0" />
+            </button>
           ))}
-
-        </motion.div>
-
-        {/* Trust Section */}
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: .6 }}
-          className="mt-20 flex flex-wrap justify-center gap-6 text-sm text-text-muted"
-        >
-          <div className="glass-card px-5 py-3 rounded-full">
-            ⚖ Odisha High Court
-          </div>
-
-          <div className="glass-card px-5 py-3 rounded-full">
-            📚 Verified Court Records
-          </div>
-
-          <div className="glass-card px-5 py-3 rounded-full">
-            🤖 AI Legal Intelligence
-          </div>
-
-          <div className="glass-card px-5 py-3 rounded-full">
-            🔒 Privacy First
-          </div>
-        </motion.div>
+        </div>
 
       </div>
-    </section>
+    </div>
   );
 }

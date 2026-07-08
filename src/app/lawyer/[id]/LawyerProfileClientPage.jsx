@@ -7,12 +7,12 @@ import {
   CheckCircle, HelpCircle, Search, Calendar, Play 
 } from "lucide-react";
 
-export default function LawyerProfileClientPage({ lawyer }) {
+export default function LawyerProfileClientPage({ lawyer = {} }) {
   const [caseSearch, setCaseSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [outcomeFilter, setOutcomeFilter] = useState("");
 
-  const cases = lawyer.cases || [];
+  const cases = lawyer?.cases || [];
   const totalCases = cases.length;
   const disposedCases = cases.filter(c => c.status === "Disposed");
   const disposedCount = disposedCases.length;
@@ -45,12 +45,13 @@ export default function LawyerProfileClientPage({ lawyer }) {
 
   // 3. Generate Chess.com / Valorant style Career Timeline Milestones
   const currentYear = new Date().getFullYear();
-  const startYear = currentYear - lawyer.experience;
+  const experience = lawyer?.experience || 0;
+  const startYear = currentYear - experience;
   const timelineMilestones = [
     {
       year: startYear,
       title: "Started Legal Practice",
-      description: `Registered under Odisha State Bar Council with Bar Number ${lawyer.bar_number}.`
+      description: `Registered under Odisha State Bar Council with Bar Number ${lawyer?.bar_number || "N/A"}.`
     },
     {
       year: startYear + 3,
@@ -59,7 +60,7 @@ export default function LawyerProfileClientPage({ lawyer }) {
     }
   ];
 
-  if (lawyer.experience > 8) {
+  if (experience > 8) {
     timelineMilestones.push({
       year: startYear + 6,
       title: "Practice Focus Shift",
@@ -67,7 +68,7 @@ export default function LawyerProfileClientPage({ lawyer }) {
     });
   }
 
-  if (lawyer.experience > 15) {
+  if (experience > 15) {
     timelineMilestones.push({
       year: startYear + 12,
       title: "Landmark Property Ruling",
@@ -151,7 +152,7 @@ export default function LawyerProfileClientPage({ lawyer }) {
             {/* FIFA style player badge */}
             <div className="relative flex h-20 w-16 flex-col items-center justify-center border-2 border-accent bg-surface/60 rounded-t-xl rounded-b-lg shadow-lg">
               <span className="text-3xl font-black text-text tracking-tighter leading-none">
-                {Math.min(99, 70 + Math.round(lawyer.experience * 0.8) + Math.round(disposedCount * 0.5))}
+                {Math.min(99, 70 + Math.round(experience * 0.8) + Math.round(disposedCount * 0.5))}
               </span>
               <span className="text-[10px] uppercase font-bold text-accent tracking-widest leading-none mt-1">
                 OVR
@@ -160,18 +161,18 @@ export default function LawyerProfileClientPage({ lawyer }) {
 
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-3xl font-black text-text tracking-tight">{lawyer.name}</h1>
-                {lawyer.experience >= 20 && (
+                <h1 className="text-3xl font-black text-text tracking-tight">{lawyer?.name || "Unknown Lawyer"}</h1>
+                {experience >= 20 && (
                   <span className="rounded bg-accent/25 border border-accent/40 px-2 py-0.5 text-[10px] font-black text-accent uppercase tracking-widest">
                     SENIOR ADV.
                   </span>
                 )}
               </div>
               <p className="text-xs text-text-muted mt-1">
-                Bar registration: <span className="font-mono text-accent">{lawyer.bar_number}</span> • Location: {lawyer.city}
+                Bar registration: <span className="font-mono text-accent">{lawyer?.bar_number || "N/A"}</span> • Location: {lawyer?.city || "Unknown Location"}
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
-                {lawyer.practice_area.split(",").map((area, idx) => (
+                {(lawyer?.practice_area || "").split(",").filter(Boolean).map((area, idx) => (
                   <span key={idx} className="rounded-full bg-surface-2 px-3 py-1 text-xs font-semibold text-text">
                     {area.trim()}
                   </span>
@@ -183,13 +184,13 @@ export default function LawyerProfileClientPage({ lawyer }) {
           {/* Action buttons */}
           <div className="flex gap-3">
             <a 
-              href={`mailto:${lawyer.email}`}
+              href={`mailto:${lawyer?.email || ""}`}
               className="rounded-lg bg-primary py-2.5 px-5 text-xs font-bold uppercase tracking-wider text-white shadow-md hover:shadow-primary/30 transition-all duration-200 cursor-pointer"
             >
               Book Consultation
             </a>
             <button 
-              onClick={() => alert(`Subscribed to case notifications for ${lawyer.name}`)}
+              onClick={() => alert(`Subscribed to case notifications for ${lawyer?.name || "this lawyer"}`)}
               className="rounded-lg border border-border bg-surface hover:bg-surface-2 py-2.5 px-5 text-xs font-bold uppercase tracking-wider text-text transition-all duration-200 cursor-pointer"
             >
               Follow Activity
@@ -213,7 +214,7 @@ export default function LawyerProfileClientPage({ lawyer }) {
           </div>
           <div className="p-3 bg-surface-2/45 rounded-lg border border-border/40">
             <span className="block text-[10px] uppercase font-bold text-text-muted tracking-wider">Avg Disposal</span>
-            <span className="text-2xl font-black text-accent mt-1 block">{lawyer.avg_disposal_time} Months</span>
+            <span className="text-2xl font-black text-accent mt-1 block">{lawyer?.avg_disposal_time || "N/A"} Months</span>
           </div>
         </div>
       </div>
@@ -230,7 +231,7 @@ export default function LawyerProfileClientPage({ lawyer }) {
               <h3 className="text-sm font-bold uppercase tracking-wider text-text">AI Practice Footprint</h3>
             </div>
             <p className="text-xs text-text-muted leading-relaxed">
-              {lawyer.ai_insight || "AI analysis footprint will generate when case indexes cross threshold limits."}
+              {lawyer?.ai_insight || "AI analysis footprint will generate when case indexes cross threshold limits."}
             </p>
           </div>
 
