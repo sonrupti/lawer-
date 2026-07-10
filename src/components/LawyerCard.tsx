@@ -4,7 +4,7 @@ import type { Page } from '../App'
 
 interface Props {
   lawyer: Lawyer
-  navigate: (page: Page) => void
+  navigate: (page: Page, query?: string) => void
 }
 
 function getRankTier(score: number) {
@@ -31,7 +31,7 @@ export default function LawyerCard({ lawyer, navigate }: Props) {
   return (
     <div
       className={`glass-card p-5 relative overflow-hidden cursor-pointer group border border-border transition-all duration-300 transform hover:-translate-y-1 ${rank.glow}`}
-      onClick={() => navigate('profile')}
+      onClick={() => navigate('profile', lawyer.id)}
     >
       {/* Decorative rank glow in background */}
       <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-current opacity-5 blur-2xl group-hover:opacity-10 transition-opacity" />

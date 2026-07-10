@@ -43,9 +43,9 @@ export default function LandingPage({ navigate }: Props) {
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-[var(--bg)] transition-colors duration-300">
       {/* Hero */}
-      <Hero />
+      <Hero navigate={navigate} />
       <IndiaMap navigate={navigate} />
 
       {/* How Performance Score Works */}

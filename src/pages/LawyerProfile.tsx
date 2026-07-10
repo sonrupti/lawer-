@@ -1,6 +1,6 @@
 import {
   BadgeCheck, Star, TrendingUp, Scale, MapPin, Phone, Mail, Calendar,
-  BookOpen, Award, Clock, ChevronLeft, ExternalLink, MessageSquare
+  BookOpen, Award, Clock, ChevronLeft, ExternalLink, MessageSquare, Sparkles
 } from 'lucide-react'
 import {
   RadialBarChart, RadialBar, ResponsiveContainer, Tooltip,
@@ -10,57 +10,38 @@ import { lawyers } from '../data/lawyers'
 import type { Page } from '../App'
 
 interface Props {
-  navigate: (page: Page) => void
+  lawyerId: string
+  navigate: (page: Page, query?: string) => void
 }
 
-const lawyer = lawyers[0]
+export default function LawyerProfile({ lawyerId, navigate }: Props) {
+  const lawyer = lawyers.find(l => l.id === lawyerId) || lawyers[0]
 
-const caseTimeline = [
-  { year: '2020', won: 28, lost: 12 },
-  { year: '2021', won: 32, lost: 14 },
-  { year: '2022', won: 35, lost: 10 },
-  { year: '2023', won: 40, lost: 15 },
-  { year: '2024', won: 38, lost: 11 },
-]
+  const caseTimeline = [
+    { year: '2020', won: Math.round(lawyer.totalCases * 0.12), lost: Math.max(1, Math.round(lawyer.totalCases * 0.05)) },
+    { year: '2021', won: Math.round(lawyer.totalCases * 0.15), lost: Math.max(1, Math.round(lawyer.totalCases * 0.06)) },
+    { year: '2022', won: Math.round(lawyer.totalCases * 0.18), lost: Math.max(1, Math.round(lawyer.totalCases * 0.04)) },
+    { year: '2023', won: Math.round(lawyer.totalCases * 0.20), lost: Math.max(1, Math.round(lawyer.totalCases * 0.07)) },
+    { year: '2024', won: Math.round(lawyer.totalCases * 0.16), lost: Math.max(1, Math.round(lawyer.totalCases * 0.05)) },
+  ]
 
-const casesByType = [
-  { name: 'Constitutional', value: 120, color: '#0a1628' },
-  { name: 'Civil Rights', value: 95, color: '#2855a8' },
-  { name: 'Public Interest', value: 80, color: '#d4a820' },
-  { name: 'Other', value: 47, color: '#a8c0e8' },
-]
+  const casesByType = lawyer.practiceAreas.map((area, idx) => {
+    const colors = ['#E5A66A', '#2855a8', '#d4a820', '#a8c0e8']
+    const pct = idx === 0 ? 0.5 : idx === 1 ? 0.3 : 0.2
+    return {
+      name: area,
+      value: Math.round(lawyer.totalCases * pct),
+      color: colors[idx % colors.length]
+    }
+  })
 
-const recentCases = [
-  { date: 'Dec 2024', title: 'State of Odisha v. Tribal Land Rights Coalition', court: 'Odisha High Court', outcome: 'Won', type: 'Constitutional' },
-  { date: 'Nov 2024', title: 'In Re: Fundamental Right to Education (PIL)', court: 'Odisha High Court', outcome: 'Won', type: 'Public Interest' },
-  { date: 'Oct 2024', title: 'Raghunath Behera v. State', court: 'Supreme Court of India', outcome: 'Pending', type: 'Civil Rights' },
-  { date: 'Sep 2024', title: 'Environmental Clearance Challenge — Vedanta', court: 'Odisha High Court', outcome: 'Won', type: 'Constitutional' },
-  { date: 'Aug 2024', title: 'Gram Panchayat Elections Challenge', court: 'Odisha High Court', outcome: 'Lost', type: 'Constitutional' },
-]
-
-function ScoreRing({ score, label }: { score: number; label: string }) {
-  const data = [{ value: score }, { value: 100 - score }]
-  return (
-    <div className="flex flex-col items-center">
-      <div className="relative w-20 h-20">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie data={data} innerRadius={28} outerRadius={36} startAngle={90} endAngle={-270} dataKey="value" strokeWidth={0}>
-              <Cell fill="#0a1628" />
-              <Cell fill="#eef3fb" />
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-sm font-bold text-[var(--color-navy-900)]">{score}</span>
-        </div>
-      </div>
-      <span className="text-xs text-[var(--color-muted-foreground)] mt-1 text-center">{label}</span>
-    </div>
-  )
-}
-
-export default function LawyerProfile({ navigate }: Props) {
+  const recentCases = [
+    { date: 'Dec 2024', title: `State of Odisha v. ${lawyer.name.split(' ').pop()} Client Group`, court: lawyer.courts[0], outcome: 'Won', type: lawyer.practiceAreas[0] },
+    { date: 'Nov 2024', title: 'In Re: Constitutional Writ Petition (PIL)', court: lawyer.courts[0], outcome: 'Won', type: lawyer.practiceAreas[0] },
+    { date: 'Oct 2024', title: 'Raghunath Behera v. State', court: lawyer.courts[1] || lawyer.courts[0], outcome: 'Pending', type: lawyer.practiceAreas[1] || lawyer.practiceAreas[0] },
+    { date: 'Sep 2024', title: 'Environmental Clearance Challenge', court: lawyer.courts[0], outcome: 'Won', type: lawyer.practiceAreas[0] },
+    { date: 'Aug 2024', title: 'District Appellate Proceedings', court: lawyer.courts[1] || lawyer.courts[0], outcome: 'Lost', type: lawyer.practiceAreas[1] || lawyer.practiceAreas[0] },
+  ]
   return (
     <div className="min-h-screen bg-[var(--color-muted)]">
       {/* Breadcrumb */}

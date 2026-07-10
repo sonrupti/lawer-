@@ -6,7 +6,7 @@ import { lawyers, practiceAreas, courts } from '../data/lawyers'
 
 interface Props {
   query: string
-  navigate: (page: Page) => void
+  navigate: (page: Page, query?: string) => void
 }
 
 interface Filters {
